@@ -27,57 +27,59 @@ const FormLogin: React.FC = () => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="form__title ">Авторизация</h2>
-      <label className="form__input">
-        Электронная почта
-        <input
-          className={`form__input-field ${
-            errors?.email ? 'form__input-field-error' : ''
-          }`}
-          {...register('email', {
-            required: ERRORS.REQUIRED,
-            pattern: { value: REG_EMAIL, message: ERRORS.EMAIL },
-          })}
-          onChange={() => clearErrors('email')}
-        />
-        {errors?.email && (
-          <p className="form__input-error">{errors?.email?.message}</p>
-        )}
-      </label>
-      <label className="form__input">
-        Пароль
-        <div className="form__input-box">
+    <main className="form">
+      <form className="form__form" onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="form__title ">Авторизация</h2>
+        <label className="form__input">
+          Электронная почта
           <input
-            type={isShowPwd ? 'text' : 'password'}
-            onCopy={(event) => event.preventDefault()}
-            onPaste={(event) => event.preventDefault()}
             className={`form__input-field ${
-              errors?.password ? 'form__input-field-error' : ''
+              errors?.email ? 'form__input-field-error' : ''
             }`}
-            {...register('password', {
+            {...register('email', {
               required: ERRORS.REQUIRED,
-              minLength: { value: 8, message: ERRORS.PASSWORD },
+              pattern: { value: REG_EMAIL, message: ERRORS.EMAIL },
             })}
-            onChange={(event) => {
-              clearErrors('password');
-            }}
+            onChange={() => clearErrors('email')}
           />
-          <button
-            type="button"
-            className={`form__input-icon ${
-              isShowPwd ? 'form__input-icon_show' : 'form__input-icon_hide'
-            }`}
-            onClick={toggleShowPwd}
-          />
-        </div>
-        {errors?.password && (
-          <p className="form__input-error">{errors?.password?.message}</p>
-        )}
-      </label>
+          {errors?.email && (
+            <p className="form__input-error">{errors?.email?.message}</p>
+          )}
+        </label>
+        <label className="form__input">
+          Пароль
+          <div className="form__input-box">
+            <input
+              type={isShowPwd ? 'text' : 'password'}
+              onCopy={(event) => event.preventDefault()}
+              onPaste={(event) => event.preventDefault()}
+              className={`form__input-field ${
+                errors?.password ? 'form__input-field-error' : ''
+              }`}
+              {...register('password', {
+                required: ERRORS.REQUIRED,
+                minLength: { value: 8, message: ERRORS.PASSWORD },
+              })}
+              onChange={(event) => {
+                clearErrors('password');
+              }}
+            />
+            <button
+              type="button"
+              className={`form__input-icon ${
+                isShowPwd ? 'form__input-icon_show' : 'form__input-icon_hide'
+              }`}
+              onClick={toggleShowPwd}
+            />
+          </div>
+          {errors?.password && (
+            <p className="form__input-error">{errors?.password?.message}</p>
+          )}
+        </label>
 
-      <input className="form__submit-btn" type="submit" value="Войти" />
-    </form>
+        <input className="form__submit-btn" type="submit" value="Войти" />
+      </form>
+    </main>
   );
 };
 
