@@ -1,0 +1,113 @@
+@import './../../styles/global.scss';
+
+.form {
+  width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 16px;
+  background: $whiteColor;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+
+  &__title {
+    color: $blackColor;
+    @include mainFont;
+    font-size: 20px;
+  }
+
+  &__input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    @include mainFont;
+    color: $blackColor;
+    font-size: 16px;
+    line-height: 136.187%; /* 21.79px */
+    gap: 8px;
+    &-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    &-icon {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      background-position: center;
+      border: none;
+      padding: 0;
+      right: 8px;
+      cursor: pointer;
+
+      &_show {
+        background-image: url('./../../images/show.svg');
+      }
+
+      &_hide {
+        background-image: url('./../../images/hide.svg');
+      }
+    }
+
+    &-field {
+      @include mainFont;
+      width: 100%;
+      display: flex;
+      height: 48px;
+      padding: 12px 40px 12px 16px;
+      align-items: center;
+      align-self: stretch;
+      box-sizing: border-box;
+      border-radius: 8px;
+      background: $grayLightColor;
+      color: $grayColor;
+      font-size: 14px;
+      line-height: normal;
+      border: none;
+      &-error {
+        border: 1px solid $redColor;
+      }
+    }
+
+    &-error {
+      color: $redColor;
+      font-size: 10px;
+      line-height: normal;
+      margin: 4px 0 0;
+    }
+  }
+
+  &__submit-btn {
+    // width: 100%;
+    border: none;
+    display: flex;
+    height: 48px;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    color: $whiteColor;
+    @include mainFont;
+    font-size: 16px;
+    line-height: 136.187%; /* 21.79px */
+    border-radius: 8px;
+    background-color: $violetColor;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+}
+
+input[type='password'] {
+  @include asterFont;
+}
+
+input:focus {
+  outline: none;
+}
