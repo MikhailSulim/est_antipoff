@@ -12,6 +12,8 @@
   &__items {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
   }
 
@@ -25,13 +27,14 @@
     border-radius: 8px;
     border: 1px solid $blackColor;
     color: $blackColor;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 136.187%; /* 21.79px */
-    & svg path {
-      fill: $blackColor;
+    & svg {
+      width: 24px;
+      height: 24px;
     }
   }
 }
