@@ -1,13 +1,21 @@
 @import './../../styles/global.scss';
 
 .expert {
-  box-sizing: border-box;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 49px 188px;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  gap: 129px;
+  &__container {
+    box-sizing: border-box;
+    padding: 49px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 129px;
+    max-width: 1064px;
+    width: 100%;
+    margin: 0 16px;
+  }
   &__info {
     max-width: 630px;
     margin: 0;
@@ -37,6 +45,32 @@
       @include mainFont;
       font-size: 16px;
       line-height: 136.187%; /* 21.79px */
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .expert {
+    &__container {
+      gap: 100px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .expert {
+    &__container {
+      gap: 80px;
+    }
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .expert {
+    &__container {
+      padding: 32px 0;
+      flex-direction: column-reverse;
+      gap: 32px;
     }
   }
 }
