@@ -1,7 +1,12 @@
+import { useSelector } from 'react-redux';
+import { getExperts, loadMore } from '../../redux/expertsSlice';
+import { useAppDispatch } from '../../redux/hooks';
 import ExpertCard from '../ExpertCard/ExpertCard';
 import './CardsContainer.scss';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { RootState } from '../../redux/store';
+import { ADD_CARDS_COUNT } from '../../utils/constants';
 
 interface Card {
   id: number;
@@ -11,16 +16,43 @@ interface Card {
   last_name: string;
 }
 
-interface CardsContainerProps {
-  cards: Card[];
-}
+const CardsContainer: React.FC = () => {
+  const [showCards, setShowCards] = useState<number>(ADD_CARDS_COUNT);
+  const dispatch = useAppDispatch();
+  const { expertsList, totalItems, currentPage, isLoadingAll } = useSelector(
+    (state: RootState) => state.experts
+  );
 
-const CardsContainer: React.FC<CardsContainerProps> = ({ cards }) => {
-  
+  useEffect(() => {
+    if (expertsList.length === 0)
+    dispatch(getExperts(1));
+  }, [dispatch, expertsList.length]);
+
+  const showMore = () => {
+    setShowCards(showCards + ADD_CARDS_COUNT);
+  };
+
+  useEffect(() => {
+    if (totalItems > 0)
+      if (showCards > expertsList.length && !isLoadingAll) {
+        dispatch(loadMore());
+      }
+  }, [dispatch, expertsList.length, isLoadingAll, showCards, totalItems]);
+
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      dispatch(getExperts(currentPage));
+    } else {
+      isFirstRender.current = false;
+    }
+  }, [dispatch, currentPage]);
+
   return (
     <main className="container">
       <div className="container__items">
-        {cards.map((card) => (
+        {expertsList.slice(0, showCards).map((card: Card) => (
           <ExpertCard
             key={card.id}
             id={card.id}
@@ -29,12 +61,14 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cards }) => {
           />
         ))}
       </div>
-      <button type="button" className="container__button">
-        Показать ещё
-        <svg>
-          <use xlinkHref="/images/sprite.svg#arrow" />
-        </svg>
-      </button>
+      {showCards < totalItems && (
+        <button type="button" className="container__button" onClick={showMore}>
+          Показать ещё
+          <svg>
+            <use xlinkHref="images/sprite.svg#arrow" />
+          </svg>
+        </button>
+      )}
     </main>
   );
 };

@@ -12,15 +12,13 @@ interface CardProps {
   name: string;
 }
 
-
 const ExpertCard: React.FC<CardProps> = ({ id, imgUrl, name }) => {
- 
   const dispatch = useAppDispatch();
   const { likedExpertsId } = useSelector((state: RootState) => state.experts);
 
   const isLiked = useMemo(
     () => likedExpertsId.includes(id),
-    [likedExpertsId, id],
+    [likedExpertsId, id]
   );
 
   const handleLike = () => {
@@ -32,15 +30,10 @@ const ExpertCard: React.FC<CardProps> = ({ id, imgUrl, name }) => {
   };
 
   const buttonClassName = useMemo(
-    () =>
-      isLiked ? 'card__like card__like_active' : 'card__like',
-    [isLiked],
+    () => (isLiked ? 'card__like card__like_active' : 'card__like'),
+    [isLiked]
   );
 
-
-
-  console.log('rrrr');
-  
   return (
     <div className="card">
       <Link className="card__link" to={`/${id}`}>
@@ -49,12 +42,9 @@ const ExpertCard: React.FC<CardProps> = ({ id, imgUrl, name }) => {
       <Link className="card__link" to={`/${id}`}>
         <h2 className="card__name">{name}</h2>
       </Link>
-      <button
-        className={buttonClassName}
-        onClick={handleLike}
-      >
+      <button className={buttonClassName} onClick={handleLike}>
         <svg>
-          <use xlinkHref="/images/sprite.svg#like" />
+          <use xlinkHref="images/sprite.svg#like" />
         </svg>
       </button>
     </div>

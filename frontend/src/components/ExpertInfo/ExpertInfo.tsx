@@ -2,7 +2,7 @@ import React from 'react';
 import './ExpertInfo.scss';
 
 interface ExpertInfoProps {
-  data: {
+  data?: {
     avatar: string;
     first_name: string;
     last_name: string;
@@ -37,15 +37,15 @@ const ExpertInfo:React.FC<ExpertInfoProps> = ({data}) => {
         <div className="expert__contacts">
           <div className="expert__contact">
             <svg>
-              <use xlinkHref="/images/sprite.svg#phone" />
+              <use xlinkHref="images/sprite.svg#phone" />
             </svg>
             <span className="expert__contact-text">+7 (954) 333-44-55</span>
           </div>
           <div className="expert__contact">
             <svg>
-              <use xlinkHref="/images/sprite.svg#email" />
+              <use xlinkHref="images/sprite.svg#email" />
             </svg>
-            <span className="expert__contact-text">{data.email}</span>
+            <span className="expert__contact-text">{data?.email}</span>
           </div>
         </div>
       </div>

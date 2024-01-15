@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import expertsApi from '../utils/expertsApi';
 
-export const getExperts = createAsyncThunk('experts/getExperts', async (page) => {
+export const getExperts = createAsyncThunk('experts/getExperts', async (page?: number) => {
   try {
-    return await expertsApi.getExperts();
+    return await expertsApi.getExperts(page);
   } catch (error) {
     return error;
   }
@@ -30,23 +30,21 @@ interface ExpertsState {
   expertsList: Experts[],
   currentExpert: Experts;
   totalItems: number,
-  startPage: number,
+  currentPage: number,
   totalPages: number,
   likedExpertsId: number[],
   isLoadingAll: boolean,
   isLoadingCurrent: boolean,
-  error: string | null,
 }
 const initialState: ExpertsState = {
   expertsList: [],
   currentExpert: { id: 0, email: '', first_name: '', last_name: '', avatar: '' },
   totalItems: 0,
-  startPage: 0,
+  currentPage: 1,
   totalPages: 0,
   likedExpertsId: [],
   isLoadingAll: false,
   isLoadingCurrent: false,
-  error: null,
 }
 
 const expertSlice = createSlice({
@@ -55,12 +53,17 @@ const expertSlice = createSlice({
   reducers: {
     clearState: (state) => {
       state.expertsList = [];
-      state.startPage = 0;
+      state.currentExpert = { id: 0, email: '', first_name: '', last_name: '', avatar: '' };
+      state.currentPage = 1;
       state.totalItems = 0;
       state.totalPages = 0;
+      state.likedExpertsId = [];
+      state.isLoadingAll = false;
+      state.isLoadingCurrent = false;
     },
-    loadMore: (state, action) => {
-      state.startPage += 1;
+    loadMore: (state) => {
+      if (state.currentPage !== state.totalPages)
+        state.currentPage += 1;
     },
 
     addLike: (state, action) => {
@@ -74,13 +77,14 @@ const expertSlice = createSlice({
     builder
       .addCase(getExperts.pending, (state) => {
         state.isLoadingAll = true;
-        state.error = null;
       })
       .addCase(getExperts.fulfilled, (state, action) => {
         state.isLoadingAll = false;
-        // if (action.payload)
-        if (state.startPage === 0 && state.expertsList.length === 0)
-          state.expertsList = [...state.expertsList, ...action.payload.data];
+
+        if (state.currentPage === 1 && state.expertsList.length === 0)
+          state.expertsList = action.payload.data;
+        else
+          state.expertsList = [...state.expertsList, ...action.payload.data]
         if (state.totalItems === 0)
           state.totalItems = action.payload.total;
         if (state.totalPages === 0)
@@ -88,23 +92,19 @@ const expertSlice = createSlice({
       })
       .addCase(getExperts.rejected, (state, action) => {
         state.isLoadingAll = false;
-        // state.error = action.payload;
       });
 
     builder
       .addCase(getExpertById.pending, (state) => {
         state.isLoadingCurrent = true;
-        state.error = null;
       })
       .addCase(getExpertById.fulfilled, (state, action) => {
         state.isLoadingCurrent = false;
-        // if (action.payload)
 
         state.currentExpert = action.payload.data;
       })
       .addCase(getExpertById.rejected, (state, action) => {
         state.isLoadingCurrent = false;
-        // state.error = action.payload;
       });
   },
 });

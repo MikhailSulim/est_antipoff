@@ -10,6 +10,7 @@ import Preloader from '../components/Preloader/Preloader';
 
 const ExpertPage: React.FC = () => {
   const { id } = useParams();
+  console.log(id)
   const dispatch = useAppDispatch();
 
   useEffect(() => {

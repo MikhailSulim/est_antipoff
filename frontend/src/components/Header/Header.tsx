@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ main, data }) => {
               onClick={goBack}
             >
               <svg>
-                <use xlinkHref="/images/sprite.svg#back" />
+                <use xlinkHref="images/sprite.svg#back" />
               </svg>
             </button>
           ) : (
@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ main, data }) => {
           onClick={() => {}}
         >
           <svg>
-            <use xlinkHref="/images/sprite.svg#exit" />
+            <use xlinkHref="images/sprite.svg#exit" />
           </svg>
         </button>
       ) : (

@@ -1,6 +1,7 @@
 export const EXPERTS_BASE_URL: string = 'https://reqres.in/api/users';
 export const REG_EMAIL: RegExp = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
 export const MOBILE_SCREEN_WIDTH: number = 590;
+export const ADD_CARDS_COUNT:number = 4; 
 
 interface Errors {
     [key: string]: string
