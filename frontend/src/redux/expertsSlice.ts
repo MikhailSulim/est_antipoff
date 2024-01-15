@@ -111,4 +111,4 @@ const expertSlice = createSlice({
 
 export const { loadMore, clearState, addLike, removeLike } = expertSlice.actions;
 
-export default expertSlice.reducer;
+export const expertsReducer = expertSlice.reducer;
