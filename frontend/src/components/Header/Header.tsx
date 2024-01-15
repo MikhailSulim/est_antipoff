@@ -3,16 +3,25 @@ import { MOBILE_SCREEN_WIDTH } from '../../utils/constants';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   main: boolean;
   data?: {
-    imageUrl: string;
-    name: string;
+    avatar: string;
+    first_name: string;
+    last_name: string;
+    email: string;
   };
 }
 
 const Header: React.FC<HeaderProps> = ({ main, data }) => {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   const windowWidth = useWindowWidth();
   const [mobile, setMobile] = useState<boolean>(false);
 
@@ -37,11 +46,11 @@ const Header: React.FC<HeaderProps> = ({ main, data }) => {
             <div className="header__partner">
               <img
                 className="header__image"
-                src={data?.imageUrl}
+                src={data?.avatar}
                 alt="фото специалиста"
               />
               <div className="header__partner-info">
-                <h1 className="header__title">Артур Королёв</h1>
+                <h1 className="header__title">{`${data?.first_name} ${data?.last_name}`}</h1>
                 <p className="header__role">Партнёр</p>
               </div>
             </div>
@@ -51,14 +60,18 @@ const Header: React.FC<HeaderProps> = ({ main, data }) => {
             <button
               type="button"
               className="header__btn-mob header__btn-mob_back"
-              onClick={() => {}}
+              onClick={goBack}
             >
               <svg>
                 <use xlinkHref="/images/sprite.svg#back" />
               </svg>
             </button>
           ) : (
-            <button type="button" className="header__btn header__btn_back">
+            <button
+              type="button"
+              className="header__btn header__btn_back"
+              onClick={goBack}
+            >
               Назад
             </button>
           )}

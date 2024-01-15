@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header/Header';
 import CardsContainer from '../components/CardsContainer/CardsContainer';
-import expertsApi from '../utils/expertsApi';
+import { getExperts } from '../redux/expertsSlice';
+import { useAppDispatch } from '../redux/hooks';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 const MainPage = () => {
-  const [cards, setCards] = useState([]);
+  const dispatch = useAppDispatch();
+    
   useEffect(() => {
-    expertsApi.getExperts().then((cards) => setCards(cards.data));
-  }, []);
+    dispatch(getExperts());
+  }, [dispatch]);
+  
+  const experts = useSelector((state: RootState) => state.experts.expertsList);
+  
   return (
     <div>
       <Header main={true} />
-      <CardsContainer cards={cards} />
+      <CardsContainer cards={experts} />
     </div>
   );
 };

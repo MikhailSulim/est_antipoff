@@ -27,8 +27,14 @@ class ExpertsApi {
     }
 
     // получение данных о фильмах
-    getExperts() {
-        return this._request(this._serverUrl, {
+    getExperts(page:number=1) {
+        return this._request(`${this._serverUrl}?page=${page}`, {
+            method: 'GET',
+            headers: this._headers,
+        });
+    }
+    getExpert(id:string) {
+        return this._request(`${this._serverUrl}/${id}`, {
             method: 'GET',
             headers: this._headers,
         });

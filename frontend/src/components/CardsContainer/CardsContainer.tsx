@@ -4,6 +4,7 @@ import './CardsContainer.scss';
 import React from 'react';
 
 interface Card {
+  id: number;
   avatar: string;
   email: string;
   first_name: string;
@@ -15,15 +16,16 @@ interface CardsContainerProps {
 }
 
 const CardsContainer: React.FC<CardsContainerProps> = ({ cards }) => {
+  
   return (
     <main className="container">
       <div className="container__items">
-        {cards.map((card, idx: number) => (
+        {cards.map((card) => (
           <ExpertCard
-            key={idx}
+            key={card.id}
+            id={card.id}
             imgUrl={card.avatar}
             name={`${card.first_name} ${card.last_name}`}
-            isLiked={false}
           />
         ))}
       </div>

@@ -1,7 +1,16 @@
 import React from 'react';
 import './ExpertInfo.scss';
 
-const ExpertInfo = () => {
+interface ExpertInfoProps {
+  data: {
+    avatar: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+  };
+}
+
+const ExpertInfo:React.FC<ExpertInfoProps> = ({data}) => {
   return (
     <main className="expert">
       <div className="expert__container">
@@ -36,7 +45,7 @@ const ExpertInfo = () => {
             <svg>
               <use xlinkHref="/images/sprite.svg#email" />
             </svg>
-            <span className="expert__contact-text">sykfafkar@gmail.com</span>
+            <span className="expert__contact-text">{data.email}</span>
           </div>
         </div>
       </div>
