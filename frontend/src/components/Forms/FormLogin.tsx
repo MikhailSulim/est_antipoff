@@ -3,6 +3,11 @@ import './Form.scss';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { REG_EMAIL, ERRORS } from '../../utils/constants';
+import { useAppDispatch } from '../../redux/hooks';
+import { loginUser } from '../../redux/authSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface FormProps {
   email: string;
@@ -10,6 +15,9 @@ interface FormProps {
 }
 
 const FormLogin: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isLoading } = useSelector((state: RootState) => state.auth);
   const {
     register,
     formState: { errors },
@@ -17,8 +25,9 @@ const FormLogin: React.FC = () => {
     clearErrors,
   } = useForm<FormProps>({ mode: 'onBlur' });
 
-  const onSubmit: SubmitHandler<FormProps> = (data) =>
-    console.log(JSON.stringify(data));
+  const onSubmit: SubmitHandler<FormProps> = async (data) => {
+    await dispatch(loginUser(data)).then(() => navigate('/'));
+  };
 
   const [isShowPwd, setIsShowPwd] = useState<boolean>(false);
 
@@ -77,7 +86,14 @@ const FormLogin: React.FC = () => {
           )}
         </label>
 
-        <input className="form__submit-btn" type="submit" value="Войти" />
+        <input
+          className="form__submit-btn"
+          type="submit"
+          value={`${isLoading ? 'Авторизация...' : 'Войти'}`}
+        />
+        <p className="form__text">
+          Не зарегистрированы?<Link to="/signup"> Зарегистрироваться </Link>{' '}
+        </p>
       </form>
     </main>
   );

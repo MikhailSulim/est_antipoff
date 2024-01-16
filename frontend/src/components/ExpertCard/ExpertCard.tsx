@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './ExpertCard.scss';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useAppDispatch } from '../../redux/hooks';
 import { addLike, removeLike } from '../../redux/expertsSlice';
 import { useSelector } from 'react-redux';

@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {expertsReducer} from './expertsSlice';
+import { authReducer } from './authSlice';
 import {
   persistStore,
   persistReducer,
@@ -13,13 +14,14 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 const rootReducer = combineReducers({
-  experts: expertsReducer
+  experts: expertsReducer,
+  auth:authReducer
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['experts']
+  whitelist: ['experts','auth']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -32,9 +34,6 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat([]), 
-  // {
-  //   experts: expertsReducer,
-  // },
 });
 export const persistor = persistStore(store);
 export default store;

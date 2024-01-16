@@ -5,6 +5,7 @@ import MainPage from '../pages/MainPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ExpertPage from '../pages/ExpertPage';
+import ProtectedRoutes from '../components/ProtectedRoutes/ProtectedRoutes';
 
 function App() {
   return (
@@ -12,8 +13,10 @@ function App() {
       <Routes>
         <Route path="/signin" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
-        <Route path="/" element={<MainPage />} />
-        <Route path="/:id" element={<ExpertPage />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/:id" element={<ExpertPage />} />
+        </Route>
       </Routes>
     </div>
   );

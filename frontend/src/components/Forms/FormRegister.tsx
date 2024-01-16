@@ -3,8 +3,10 @@ import './Form.scss';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { REG_EMAIL, ERRORS } from '../../utils/constants';
+import authApi from '../../utils/authApi';
 
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface FormProps {
   name: string;
@@ -14,6 +16,8 @@ interface FormProps {
 }
 
 const FormRegister: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -22,8 +26,18 @@ const FormRegister: React.FC = () => {
     watch,
   } = useForm<FormProps>({ mode: 'onBlur' });
 
-  const onSubmit: SubmitHandler<FormProps> = (data) =>
-    console.log(JSON.stringify(data));
+  const onSubmit: SubmitHandler<FormProps> = (data) => {
+    const { name, email, password } = data;
+    setIsLoading(true);
+    authApi
+      .register(name, email, password)
+      .then(() => {
+        alert('Вы успешно зарегистрировались!');
+        navigate('/signin');
+      })
+      .catch((err) => alert(err))
+      .finally(() => setIsLoading(false));
+  };
 
   const [isShowPwd, setIsShowPwd] = useState<boolean>(false);
   const [isShowPwdConfirm, setIsShowPwdConfirm] = useState<boolean>(false);
@@ -135,8 +149,11 @@ const FormRegister: React.FC = () => {
         <input
           className="form__submit-btn"
           type="submit"
-          value="Зарегистрироваться"
+          value={`${isLoading ? 'Регистрация...' : 'Зарегистрироваться'}`}
         />
+        <p className="form__text">
+          Зарегистрированы?<Link to="/signin"> Войти </Link>{' '}
+        </p>
       </form>
     </main>
   );

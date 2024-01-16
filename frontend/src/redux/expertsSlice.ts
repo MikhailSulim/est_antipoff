@@ -5,7 +5,7 @@ export const getExperts = createAsyncThunk('experts/getExperts', async (page?: n
   try {
     return await expertsApi.getExperts(page);
   } catch (error) {
-    return error;
+    return console.log(error);
   }
 });
 
@@ -13,7 +13,7 @@ export const getExpertById = createAsyncThunk('experts/getExpertById', async (id
   try {
     return await expertsApi.getExpert(id);
   } catch (error) {
-    return error;
+    return console.log(error);
 
   }
 })

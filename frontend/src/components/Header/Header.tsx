@@ -4,6 +4,9 @@ import { useWindowWidth } from '../../hooks/useWindowWidth';
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../redux/authSlice';
+import { useAppDispatch } from '../../redux/hooks';
+import { persistor } from '../../redux/store';
 
 interface HeaderProps {
   main: boolean;
@@ -17,9 +20,19 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ main, data }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const goBack = () => {
     navigate(-1);
+  };
+
+  const handleExit = () => {
+    dispatch(logoutUser());
+    persistor.pause();
+    persistor.flush().then(() => {
+      return persistor.purge();
+    });
+    // alert("До свидания")
   };
 
   const windowWidth = useWindowWidth();
@@ -81,14 +94,18 @@ const Header: React.FC<HeaderProps> = ({ main, data }) => {
         <button
           type="button"
           className="header__btn-mob header__btn-mob_exit"
-          onClick={() => {}}
+          onClick={handleExit}
         >
           <svg>
             <use xlinkHref="images/sprite.svg#exit" />
           </svg>
         </button>
       ) : (
-        <button type="button" className="header__btn header__btn_exit">
+        <button
+          type="button"
+          className="header__btn header__btn_exit"
+          onClick={handleExit}
+        >
           Выход
         </button>
       )}
