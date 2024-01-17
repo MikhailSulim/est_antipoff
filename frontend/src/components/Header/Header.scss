@@ -1,0 +1,212 @@
+@import './../../styles/global.scss';
+
+.header {
+  width: 100vw;
+  margin: 0;
+  min-height: 265px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $violetColor;
+  position: relative;
+
+  &__container {
+    max-width: 1440px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    box-sizing: border-box;
+    gap: 16px;
+  }
+
+  &__title {
+    @include mainFont;
+    color: $whiteColor;
+    font-size: 64px;
+    max-height: 75px;
+    text-align: center;
+    padding: 0;
+  }
+
+  &__description {
+    @include mainFont;
+    color: $grayLightColor;
+    text-align: center;
+    font-size: 20px;
+    max-height: 46px;
+    padding: 0;
+    max-width: 846px;
+  }
+
+  &__partner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 1064px;
+    width: 100%;
+    gap: 32px;
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  &__image {
+    width: 187px;
+    height: 187px;
+    border-radius: 50%;
+  }
+
+  &__role {
+    color: $whiteColor;
+    @include mainFont;
+    font-size: 32px;
+  }
+
+  &__btn {
+    @include mainFont;
+    background-color: transparent;
+    color: $grayLightColor;
+    font-size: 16px;
+    line-height: 136.187%; /* 21.79px */
+    padding: 8px 16px;
+    border: 1px solid $grayLightColor;
+    border-radius: 8px;
+    position: absolute;
+    top: 32px;
+    cursor: pointer;
+    height: 38px;
+
+    &_exit {
+      width: 81px;
+      right: 80px;
+    }
+    &_back {
+      width: 79px;
+      left: 80px;
+    }
+
+    &-mob {
+      background-color: transparent;
+      width: 40px;
+      height: 40px;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin-bottom: 12px;
+      justify-self: flex-start;
+      position: absolute;
+      top: 12px;
+      cursor: pointer;
+
+      &_exit {
+        right: 16px;
+      }
+
+      &_back {
+        left: 16px;
+      }
+      & svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1380px) {
+  .header {
+    &__partner {
+      margin: 65px 0 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    &__btn {
+      &_exit {
+        right: 60px;
+      }
+      &_back {
+        left: 60px;
+      }
+    }
+    &__role {
+      font-size: 28px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    height: 281px;
+    &__title {
+      font-size: 48px;
+    }
+
+    &__description {
+      font-size: 18px;
+      max-height: 95px;
+      max-width: 450px;
+    }
+
+    &__btn {
+      font-size: 14px;
+      padding: 6px 12px;
+      height: 32px;
+
+      &_exit {
+        right: 40px;
+      }
+      &_back {
+        left: 40px;
+      }
+    }
+
+    &__role {
+      font-size: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .header {
+    height: 100%;
+    &__title {
+      font-size: 36px;
+      max-height: 42px;
+    }
+
+    &__description {
+      font-size: 16px;
+      max-height: 95px;
+      max-width: 334px;
+    }
+
+    &__btn {
+      display: none;
+    }
+
+    &__partner {
+      // height: 300px;
+      margin: 0px;
+      padding: 64px 30px;
+      box-sizing: border-box;
+      flex-direction: column-reverse;
+      gap: 16px;
+    }
+
+    &__role {
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+}

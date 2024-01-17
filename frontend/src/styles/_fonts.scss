@@ -1,0 +1,17 @@
+@import './../vendors/fonts/Roboto/Roboto.scss';
+
+@mixin mainFont {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+@mixin asterFont {
+  font-family: 'Aster';
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
